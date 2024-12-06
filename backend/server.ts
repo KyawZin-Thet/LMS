@@ -5,7 +5,7 @@ import express, { Request, Response } from "express";
 // import { appRouter } from "./src/routes/app.route";
 // import { userRouter } from "./src/routes/user.route";
 // import { categoryRouter } from "./src/routes/category.route";
-// import { lectureRouter } from "./src/routes/lecture.route";
+import { lectureRouter } from "./src/routes/lectures";
 // import { lessonRouter } from "./src/routes/lesson.route";
 // import { studentRouter } from "./src/routes/student.route";
 // import { paymentBankRouter } from "./src/routes/payment_bank.route";
@@ -52,6 +52,8 @@ const port = 4000;
 // app.get("/api/v1/admin/get-lectures", checkauth, searchLecture);
 // app.get("/api/v1/admin/get-paymentbanks", checkauth, getPaymentBanks);
 // app.get("/api/v1/admin/create-purchase", checkauth, createPurchase);
+
+app.use("/api/lectures", lectureRouter);
 app.get("/", (req: Request, res: Response) => {
   res.send("server is started ok in /");
 });
