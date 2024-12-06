@@ -1,0 +1,123 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  email      String   @unique
+  username   String
+  password   String
+  role       Role
+  deleted    Boolean  @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Lecture {
+  id                Int                 @id @default(autoincrement())
+  title             String
+  description       String
+  isPremium         Boolean             @default(false)
+  price             Int                 @default(0)
+  discount_price    Int                 @default(0)
+  deleted           Boolean             @default(false)
+  LectureonCategory LectureonCategory[]
+  created_at        DateTime            @default(now())
+  updated_at        DateTime            @updatedAt
+  Lesson            Lesson[]
+  Transactions      Transactions[]
+  PremiumStudent    PremiumStudent[]
+}
+
+model LectureCategory {
+  id                Int                 @id @default(autoincrement())
+  name              String
+  deleted           Boolean             @default(false)
+  created_at        DateTime            @default(now())
+  updated_at        DateTime            @updatedAt
+  LectureonCategory LectureonCategory[]
+}
+
+model LectureonCategory {
+  id                Int             @id @default(autoincrement())
+  lectureCategory   LectureCategory @relation(fields: [lectureCategoryId], references: [id])
+  lectureCategoryId Int
+  lecture           Lecture         @relation(fields: [lectureId], references: [id])
+  lectureId         Int
+}
+
+model Lesson {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  content     String?
+  assetImage  String?
+  assetVideo  String?
+  lecture     Lecture  @relation(fields: [lectureId], references: [id])
+  lectureId   Int
+  deleted     Boolean  @default(false)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+}
+
+model Transactions {
+  id               Int      @id @default(autoincrement())
+  lecture          Lecture  @relation(fields: [lectureId], references: [id])
+  lectureId        Int
+  student          Student  @relation(fields: [studentId], references: [id])
+  studentId        Int
+  total_price      Int
+  payment_assetUrl String
+  payment_status   Status   @default(PENDING)
+  deleted          Boolean  @default(false)
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+}
+
+model Student {
+  id             Int              @id @default(autoincrement())
+  name           String
+  email          String
+  password       String
+  assetUrl       String?
+  phone          String?
+  deleted        Boolean          @default(false)
+  created_at     DateTime         @default(now())
+  updated_at     DateTime         @updatedAt
+  Transactions   Transactions[]
+  PremiumStudent PremiumStudent[]
+}
+
+model PremiumStudent {
+  id         Int      @id @default(autoincrement())
+  student    Student  @relation(fields: [studentId], references: [id])
+  studentId  Int
+  deleted    Boolean  @default(false)
+  created_at DateTime @default(now())
+  lecture    Lecture  @relation(fields: [lectureId], references: [id])
+  lectureId  Int
+  updated_at DateTime @updatedAt
+}
+
+enum Status {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+enum Role {
+  ADMIN
+  STUDENT
+  TEACHER
+}

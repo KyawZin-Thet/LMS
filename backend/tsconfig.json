@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2016" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "module": "commonjs" /* Skip type checking .d.ts files that are included with TypeScript. */,
+    "skipLibCheck": true,
+    "rootDir": "./",
+    "outDir": "./dist",
+    "strict": true,
+    "esModuleInterop": true
+    /* Skip type checking all .d.ts files. */
+  },
+  "include": ["server.ts", "utilsrc/utils/**/*.tssrc/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}
