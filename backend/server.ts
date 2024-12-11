@@ -1,11 +1,13 @@
 import cors from "cors";
 import express, { Request, Response } from "express";
+import { userRouter } from "./src/routes/userRouter";
 //import dotenv from "dotenv";
 // // dotenv.config();
-// import { appRouter } from "./src/routes/app.route";
+
+import { appRouter } from "./src/routes/appRoute";
 // import { userRouter } from "./src/routes/user.route";
 // import { categoryRouter } from "./src/routes/category.route";
-import { lectureRouter } from "./src/routes/lectures";
+import { lectureRouter } from "./src/routes/lectureRouter";
 // import { lessonRouter } from "./src/routes/lesson.route";
 // import { studentRouter } from "./src/routes/student.route";
 // import { paymentBankRouter } from "./src/routes/payment_bank.route";
@@ -31,7 +33,6 @@ app.use(express.json());
 
 const port = 4000;
 
-// app.use("/api/v1/admin/auth", appRouter);
 // app.use("/api/v1/admin/users", userRouter);
 // app.use("/api/v1/admin/categories", categoryRouter);
 // app.use("/api/v1/admin/lectures", lectureRouter);
@@ -53,7 +54,9 @@ const port = 4000;
 // app.get("/api/v1/admin/get-paymentbanks", checkauth, getPaymentBanks);
 // app.get("/api/v1/admin/create-purchase", checkauth, createPurchase);
 
-app.use("/api/lectures", lectureRouter);
+app.use("/api/admin/users", userRouter);
+app.use("/api/admin/auth", appRouter);
+app.use("/api", lectureRouter);
 app.get("/", (req: Request, res: Response) => {
   res.send("server is started ok in /");
 });

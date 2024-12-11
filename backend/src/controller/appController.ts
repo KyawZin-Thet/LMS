@@ -2,9 +2,8 @@ import { Request, Response } from "express";
 
 // import { config } from "../../utils/config";
 
-export const index = (req: Request, res: Response) => {
+export const firstfunction = (req: Request, res: Response) => {
   console.log("hello");
-  return res.send("hello");
 };
 
 // export const login = async (req: Request, res: Response) => {
