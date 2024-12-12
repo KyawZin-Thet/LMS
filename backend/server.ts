@@ -1,5 +1,6 @@
 import cors from "cors";
 import express, { Request, Response } from "express";
+import { lectureCategoryRouter } from "./src/routes/lectureCategoryRoute";
 import { userRouter } from "./src/routes/userRouter";
 //import dotenv from "dotenv";
 // // dotenv.config();
@@ -56,7 +57,8 @@ const port = 4000;
 
 app.use("/api/admin/users", userRouter);
 app.use("/api/admin/auth", appRouter);
-app.use("/api", lectureRouter);
+app.use("/api/lectures", lectureRouter);
+app.use("/api/lectureCategories", lectureCategoryRouter);
 app.get("/", (req: Request, res: Response) => {
   res.send("server is started ok in /");
 });

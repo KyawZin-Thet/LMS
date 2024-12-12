@@ -1,5 +1,5 @@
 import express from "express";
 import { getAllLessons } from "./../controller/lessonController";
-export const userRouter = express.Router();
+export const lessonRouter = express.Router();
 
-userRouter.get("/", getAllLessons);
+lessonRouter.get("/", getAllLessons);
