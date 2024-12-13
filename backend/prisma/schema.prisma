@@ -25,31 +25,31 @@ model User {
 }
 
 model Lecture {
-  id                Int                 @id @default(autoincrement())
-  title             String
-  description       String
-  isPremium         Boolean             @default(false)
-  price             Int                 @default(0)
-  discount_price    Int                 @default(0)
-  deleted           Boolean             @default(false)
-  LectureonCategory LectureonCategory[]
-  created_at        DateTime            @default(now())
-  updated_at        DateTime            @updatedAt
-  Lesson            Lesson[]
-  Transactions      Transactions[]
-  PremiumStudent    PremiumStudent[]
+  id                 Int                  @id @default(autoincrement())
+  title              String
+  description        String
+  isPremium          Boolean              @default(false)
+  price              Int                  @default(0)
+  discount_price     Int                  @default(0)
+  deleted            Boolean              @default(false)
+  lectureAndCategory lectureAndCategory[]
+  created_at         DateTime             @default(now())
+  updated_at         DateTime             @updatedAt
+  Lesson             Lesson[]
+  Transactions       Transactions[]
+  PremiumStudent     PremiumStudent[]
 }
 
 model LectureCategory {
-  id                Int                 @id @default(autoincrement())
-  name              String
-  deleted           Boolean             @default(false)
-  created_at        DateTime            @default(now())
-  updated_at        DateTime            @updatedAt
-  LectureonCategory LectureonCategory[]
+  id                 Int                  @id @default(autoincrement())
+  name               String
+  deleted            Boolean              @default(false)
+  created_at         DateTime             @default(now())
+  updated_at         DateTime             @updatedAt
+  lectureAndCategory lectureAndCategory[]
 }
 
-model LectureonCategory {
+model lectureAndCategory {
   id                Int             @id @default(autoincrement())
   lectureCategory   LectureCategory @relation(fields: [lectureCategoryId], references: [id])
   lectureCategoryId Int

@@ -1,9 +1,12 @@
 import express from "express";
-import { lectures } from "../controller/lectureController";
+import {
+  createLectures,
+  getAllLectures,
+} from "./../controller/lectureController";
 
 export const lectureRouter = express.Router();
 
-lectureRouter.get("/", lectures);
-lectureRouter.post("/", lectures);
+lectureRouter.get("/", getAllLectures);
+lectureRouter.post("/", createLectures);
 // lectureRouter.post("/",lectures.createLecture)
 // lectureRouter.delete("/",lectures.deleteLecture)
