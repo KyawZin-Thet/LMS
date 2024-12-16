@@ -1,6 +1,7 @@
 import cors from "cors";
 import express, { Request, Response } from "express";
 import { lectureCategoryRouter } from "./src/routes/lectureCategoryRoute";
+import { lessonRouter } from "./src/routes/lessonRoute";
 import { studentRouter } from "./src/routes/studentRoute";
 import { userRouter } from "./src/routes/userRouter";
 //import dotenv from "dotenv";
@@ -38,7 +39,7 @@ const port = 4000;
 // app.use("/api/v1/admin/users", userRouter);
 // app.use("/api/v1/admin/categories", categoryRouter);
 // app.use("/api/v1/admin/lectures", lectureRouter);
-// app.use("/api/v1/admin/lessons", lessonRouter);
+
 // app.use("/api/v1/admin/students", studentRouter);
 // app.use("/api/v1/admin/payment-banks", paymentBankRouter);
 // app.use("/api/v1/admin/payment-accounts", paymentAccountRouter);
@@ -59,6 +60,7 @@ const port = 4000;
 app.use("/api/admin/admin/users", userRouter);
 app.use("/api/admin/admin/auth", appRouter);
 app.use("/api/admin/lectures", lectureRouter);
+app.use("/api/admin/lessons", lessonRouter);
 app.use("/api/admin/students", studentRouter);
 app.use("/api/admin/lectureCategories", lectureCategoryRouter);
 app.get("/", (req: Request, res: Response) => {
