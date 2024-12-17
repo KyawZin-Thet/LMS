@@ -12,6 +12,13 @@ export const getAllLessons = async (req: Request, res: Response) => {
 };
 
 export const storeLessons = async (req: Request, res: Response) => {
+  try {
+    const allLessons = await prisma.lesson.findMany();
+    if (!allLessons) throw Error("No lessons found");
+    res.status(200).json(allLessons);
+  } catch (err) {
+    res.status(404).json({ message: err });
+  }
   const { title, description, content, assetImage, assetVideo, lectureId } =
     req.body;
   try {
